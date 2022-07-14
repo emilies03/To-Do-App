@@ -12,7 +12,13 @@
       <h2>Items</h2>
       <ul class="list-group mb-4">
         {% for item in items %}
-          <li>{{ item.title }}</li>
+        <li class="list-item">
+          <form action="/update" method="post">
+            <label for="complete">{{ item.title }}</label>
+            <input type='hidden' id="complete" name="item-id" value = {{ item.id }}>
+            <input type="checkbox" onChange='submit()' {% if item.status == "Complete" %} checked {% endif %}>
+          </form>
+        </li>
         {% endfor %}
       </ul>
     </div>
