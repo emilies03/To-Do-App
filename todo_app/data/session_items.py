@@ -1,13 +1,15 @@
 from flask import session
-
-_DEFAULT_ITEMS = [
-    { 'id': 1, 'status': 'Not Started', 'title': 'List saved todo items' },
-    { 'id': 2, 'status': 'Not Started', 'title': 'Allow new items to be added' }
-]
-
+from todo_app.data.api_client import get_lists, get_list_cards
+import json
+from todo_app.data.list import List
 
 def get_items():
-    return session.get('items', _DEFAULT_ITEMS.copy())
+    lists = get_lists()
+    cards = []
+    for list in lists:
+        list_cards = get_list_cards(list.id, list.name)
+        cards = cards + list_cards
+    return cards
 
 def update_task_status(id):
     item = get_item(id)
