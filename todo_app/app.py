@@ -7,7 +7,7 @@ app.config.from_object(Config())
 
 @app.route('/')
 def index():
-    return render_template('index.html', items=get_items())
+    return render_template('index.html', cards=get_items())
 
 @app.route('/submit', methods = ["POST"])
 def submit_review():
