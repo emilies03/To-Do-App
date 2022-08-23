@@ -19,6 +19,7 @@
                 <input type='hidden' name="card-status" value = "{{card.status}}">
                 <input class="task-status task-status--{{card.class_name}}" type="submit" value="{{card.status}}"></input>
               </form>
+              <div class="task-description">{{card.description}}</div>
             </li>
         {% endfor %}
       </ul>

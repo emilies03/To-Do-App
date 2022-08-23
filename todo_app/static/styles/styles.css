@@ -57,7 +57,11 @@ body {
 .task {
     display: flex;
     flex-direction: row;
-    margin-bottom: 0.5rem;
+    margin-top: 0.75rem;
+}
+
+.task-description {
+    font-size: 0.75rem;
 }
 
 .task-name--done {

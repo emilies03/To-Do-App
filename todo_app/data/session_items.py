@@ -9,7 +9,7 @@ def get_items():
     for list in cards_result:
             for card in list["cards"]:
                 card_array.append(
-                    Card(card["id"], card["name"], list["name"], card["desc"])
+                    Card.from_trello_card(card, list)
                 )
     return card_array
 
