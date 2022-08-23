@@ -69,12 +69,17 @@ body {
 }
 
 .task-status {
+    cursor: pointer;
     border: 2pt;
     border-radius: 25px;
     width: fit-content;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     margin-left: 0.5rem;
+}
+
+.task-status:hover {
+    background-color: lightpink;
 }
 
 .task-status--todo {
