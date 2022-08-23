@@ -1,5 +1,5 @@
 from flask import session
-from todo_app.data.api_client import get_cards_request
+from todo_app.data.api_client import get_cards_request, create_new_card
 from todo_app.data.card import Card
 
 def get_items():
@@ -24,17 +24,8 @@ def get_item(id):
     items = get_items()
     return next((item for item in items if item['id'] == int(id)), None)
 
-def add_item(title):
-    items = get_items()
-
-    # Determine the ID for the item based on that of the previously added item
-    id = items[-1]['id'] + 1 if items else 0
-
-    item = { 'id': id, 'title': title, 'status': 'Not Started' }
-    items.append(item)
-    session['items'] = items
-
-    return item
+def add_item(card_name):
+    create_new_card(card_name)
 
 def save_item(item):
     existing_items = get_items()
