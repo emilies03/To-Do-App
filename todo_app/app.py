@@ -17,6 +17,7 @@ def submit_review():
 
 @app.route('/update', methods = ["POST"])
 def update_item_status():
-    item_id = request.form.get("item-id")
-    update_task_status(item_id)
+    card_id = request.form.get("card-id")
+    card_status = request.form.get("card-status")
+    update_task_status(card_id, card_status)
     return redirect(url_for('index'))

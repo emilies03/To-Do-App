@@ -13,15 +13,12 @@
       <ul class="list-group mb-4">
         {% for card in cards %}          
             <li class="list-item">  {# add status in #}
-              <div class="task">
+              <form action="/update" method="post" class="task">
                 <div class="task-name--{{card.class_name}}">{{card.name}}</div>
-                <div class="task-status task-status--{{card.class_name}}">{{card.status}}</div>
-              </div>  
-              {# <form action="/update" method="post"> #}
-                {# <label for="complete">{{ item.title }}</label> #}
-                {# <input type='hidden' id="complete" name="item-id" value = {{ item.id }}> #}
-                {# <input type="checkbox" onChange='submit()' {% if item.status == "Complete" %} checked {% endif %}> #}
-              {# </form> #}
+                <input type='hidden' name="card-id" value = {{ card.id }}>
+                <input type='hidden' name="card-status" value = "{{card.status}}">
+                <input class="task-status task-status--{{card.class_name}}" type="submit" value="{{card.status}}"></input>
+              </form>
             </li>
         {% endfor %}
       </ul>
