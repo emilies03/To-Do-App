@@ -2,8 +2,8 @@
 {% block title %}To-Do App{% endblock %}
 
 {% block content %}
-  <div class="jumbotron">
-    <h1 class="display-4">To-Do App</h1>
+  <div class="block-header">
+    <h1 class="block-header--title">To-Do App</h1>
     <p class="lead">Just another to-do app.</p>
   </div>
 
@@ -12,9 +12,11 @@
       <h2>Items</h2>
       <ul class="list-group mb-4">
         {% for card in cards %}          
-            <li class="list-item">
-              <h2>{{card.name}}</h2>
-              <h2>{{card.status}}</h2>
+            <li class="list-item">  {# add status in #}
+              <div class="task">
+                <div>{{card.name}}</div>
+                <div class="task-status">{{card.status}}</div>
+              </div>  
               {# <form action="/update" method="post"> #}
                 {# <label for="complete">{{ item.title }}</label> #}
                 {# <input type='hidden' id="complete" name="item-id" value = {{ item.id }}> #}
