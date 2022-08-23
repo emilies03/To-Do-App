@@ -60,16 +60,31 @@ body {
     margin-bottom: 0.5rem;
 }
 
+.task-name--done {
+    text-decoration: line-through;
+}
+
 .task-list {
     padding-bottom: 2rem;
 }
 
 .task-status {
     border: 2pt;
-    background-color: #9cd7a8;
     border-radius: 25px;
     width: fit-content;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     margin-left: 0.5rem;
+}
+
+.task-status--todo {
+    background-color: #ffa180;
+}
+
+.task-status--started {
+    background-color: #ffd080;
+}
+
+.task-status--done {
+    background-color: #9cd7a8;
 }

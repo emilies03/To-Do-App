@@ -14,8 +14,8 @@
         {% for card in cards %}          
             <li class="list-item">  {# add status in #}
               <div class="task">
-                <div>{{card.name}}</div>
-                <div class="task-status">{{card.status}}</div>
+                <div class="task-name--{{card.class_name}}">{{card.name}}</div>
+                <div class="task-status task-status--{{card.class_name}}">{{card.status}}</div>
               </div>  
               {# <form action="/update" method="post"> #}
                 {# <label for="complete">{{ item.title }}</label> #}
