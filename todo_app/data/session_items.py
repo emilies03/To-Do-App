@@ -1,15 +1,16 @@
 from flask import session
-from todo_app.data.api_client import get_lists, get_list_cards
-import json
-from todo_app.data.list import List
+from todo_app.data.api_client import get_cards_request
+from todo_app.data.card import Card
 
 def get_items():
-    lists = get_lists()
-    cards = []
-    for list in lists:
-        list_cards = get_list_cards(list.id, list.name)
-        cards = cards + list_cards
-    return cards
+    cards_result = get_cards_request()
+    card_array = []
+    for list in cards_result:
+            for card in list["cards"]:
+                card_array.append(
+                    Card(card["id"], card["name"], list["name"], card["desc"])
+                )
+    return card_array
 
 def update_task_status(id):
     item = get_item(id)
