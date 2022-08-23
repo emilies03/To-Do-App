@@ -8,7 +8,7 @@
   </div>
 
   <div class="row">
-    <div class="col-md-12">
+    <div class="task-list">
       <h2>Items</h2>
       <ul class="list-group mb-4">
         {% for card in cards %}          
@@ -27,13 +27,13 @@
       </ul>
     </div>
   </div>
-  <div class="row">
+  <div class="block-header">
     <div class="col-md-12">
       <h2>Add tasks</h2>
       <form action="/submit" method="post">
         <label for="task">task description:</label>
         <input type="text" id="task" name="task-name" required></input><br>
-        <input type="submit"></input>
+        <input class="submit-button" type="submit"></input>
       </form>
     </div>
   </div>
