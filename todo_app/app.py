@@ -1,13 +1,16 @@
 from flask import Flask, render_template, request, redirect, url_for
 from todo_app.data.session_items import get_items, add_item, update_task_status
 from todo_app.flask_config import Config
+from todo_app.view_models.cards_view_model import CardsViewModel
+
 
 app = Flask(__name__)
 app.config.from_object(Config())
 
 @app.route('/')
 def index():
-    return render_template('index.html', cards=get_items())
+    cards_view_model = CardsViewModel(get_items())
+    return render_template('index.html', view_model = cards_view_model)
 
 @app.route('/submit', methods = ["POST"])
 def submit_review():
