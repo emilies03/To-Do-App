@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from todo_app.data.session_items import get_items, add_item, update_task_status
 from todo_app.flask_config import Config
-from todo_app.view_models.cards_view_model import CardsViewModel
+from todo_app.view_models.items_view_model import ItemsViewModel
 
 
 app = Flask(__name__)
@@ -9,8 +9,8 @@ app.config.from_object(Config())
 
 @app.route('/')
 def index():
-    cards_view_model = CardsViewModel(get_items())
-    return render_template('index.html', view_model = cards_view_model)
+    items_view_model = ItemsViewModel(get_items())
+    return render_template('index.html', view_model = items_view_model)
 
 @app.route('/submit', methods = ["POST"])
 def submit_review():
@@ -20,7 +20,7 @@ def submit_review():
 
 @app.route('/update', methods = ["POST"])
 def update_item_status():
-    card_id = request.form.get("card-id")
-    card_status = request.form.get("card-status")
+    card_id = request.form.get("item-id")
+    card_status = request.form.get("item-status")
     update_task_status(card_id, card_status)
     return redirect(url_for('index'))

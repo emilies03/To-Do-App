@@ -1,4 +1,4 @@
-class Card:
+class Item:
     def __init__(self, id, name, status, description):
         self.id = id
         self.name = name
