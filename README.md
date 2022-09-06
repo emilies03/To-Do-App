@@ -60,4 +60,4 @@ Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser
 
 To set up the virtual environment, press `Cmd/Ctrl + Shift + P` and select `Python: Select Interpreter`. Select the Python executable in the new `.venv` directory, which is `./.venv/Scripts/python.exe` on Windows.
 
-To run the tests, use the command `poetry run pytest tests` in the DevOps-Course-Starter directory. This will search the "tests" directory for files starting in `test_` or ending in `_test`. Inside those files, any function starting with `test_` will be considered a test.
+To run the tests (integration and unit), use the command `poetry run pytest tests` in the DevOps-Course-Starter directory. This will search the "tests" directory for files starting in `test_` or ending in `_test`. Inside those files, any function starting with `test_` will be considered a test.

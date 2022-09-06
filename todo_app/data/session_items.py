@@ -4,6 +4,8 @@ from todo_app.data.item import Item
 
 def get_items():
     cards_result = get_cards_request()
+    if cards_result == None:
+        return []
     card_array = [
         Item.from_trello_card(card, list)
         for list in cards_result
