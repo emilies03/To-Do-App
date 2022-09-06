@@ -5,12 +5,11 @@ from todo_app.data.card import Card
 
 def get_items():
     cards_result = get_cards_request()
-    card_array = []
-    for list in cards_result:
-            for card in list["cards"]:
-                card_array.append(
-                    Card.from_trello_card(card, list)
-                )
+    card_array = [
+        Card.from_trello_card(card, list)
+        for list in cards_result
+        for card in list['cards']
+    ]
     return card_array
 
 def update_task_status(card_id, card_status):

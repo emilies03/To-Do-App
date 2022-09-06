@@ -12,7 +12,7 @@
       <h2>Items</h2>
       <ul class="list-group mb-4">
         {% for card in cards %}          
-            <li class="list-item">  {# add status in #}
+            <li class="list-item">
               <form action="/update" method="post" class="task">
                 <div class="task-name--{{card.class_name}}">{{card.name}}</div>
                 <input type='hidden' name="card-id" value = {{ card.id }}>
