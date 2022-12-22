@@ -39,7 +39,11 @@ Trello board and list ids will also need to be added to the .env file. This app 
 
 ## Running the App
 
-Once the all dependencies have been installed, start the Flask app in development mode within the Poetry environment by running:
+### Development mode
+Once the all dependencies have been installed, you can start the flask app
+
+#### Running code locally
+start the Flask app in development mode within the Poetry environment by running:
 ```bash
 $ poetry run flask run
 ```
@@ -55,6 +59,20 @@ You should see output similar to the following:
  * Debugger PIN: 226-556-590
 ```
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
+
+#### Developer mode docker container
+To create the docker image run
+`docker build --target developer --tag todo-app:dev .`
+To run docker container run the following, where `<DESKTOP-ROUTE>` is the file path to the code e.g. `C:\Dev Ops\To Do App\DevOps-Course-Starter`
+` docker run -d -p 8080:5000 --env-file .env --mount 'type=bind,source=<DESKTOP-ROUTE>\todo_app\,target=/app/todo_app/' todo-app:dev`
+Then you can go to http://localhost:8080/ to view the app
+
+### Production mode docker container
+To create the docker image run
+`docker build --target production --tag todo-app:prod .`
+To run docker container run
+`docker run -p 8080:8000 --env-file .env todo-app:prod`
+Then you can go to http://localhost:8080/ to view the app
 
 ## Running Tests
 
