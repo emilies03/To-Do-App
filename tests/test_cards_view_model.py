@@ -29,7 +29,6 @@ def test_started_items_returns_correct_items(items_view_model: ItemsViewModel):
     started_items = items_view_model.started_items
 
     # Assert
-    assert False
     assert len(started_items) == 2
     assert THIRD_ITEM in started_items
     assert SIXTH_ITEM in started_items
