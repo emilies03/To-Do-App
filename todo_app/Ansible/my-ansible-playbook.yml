@@ -3,9 +3,6 @@
   remote_user: ec2-user
 
   vars_prompt:
-    - name: secret_key
-      prompt: What is the secret key?
-
     - name: api_key
       prompt: What is the Trello API key?
 

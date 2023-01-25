@@ -90,4 +90,4 @@ To run docker container run
 ## To run To Do App on managed nodes
 
 Copy the contents of the `Ansible` repository to the control node
-On the control node run `ansible-playbook my-ansible-playbook.yml -i my-ansible-inventory`
+On the control node run `ansible-playbook my-ansible-playbook.yml -i my-ansible-inventory`, you should then see the app running on port 80 of the managed node e.g. go to http://18.170.89.124/:80
