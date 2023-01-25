@@ -21,10 +21,9 @@ def add_item(item_name):
     create_new_card(item_name)
 
 def get_next_list_id(card_status):
-    match card_status:
-        case "To Do":
-            return os.getenv("STARTED_LIST_ID")
-        case "Started":
-            return os.getenv("DONE_LIST_ID")
-        case "Done":
-            return os.getenv("TO_DO_LIST_ID")
+    if (card_status == "To Do"):
+        return os.getenv("STARTED_LIST_ID")
+    if (card_status == "Started"):
+        return os.getenv("DONE_LIST_ID")
+    if (card_status == "Done"):
+        return os.getenv("TO_DO_LIST_ID")
