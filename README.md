@@ -81,7 +81,13 @@ To run the test suite in VS code, you need to set up the virtual environment. Pr
 To run the tests (integration and unit), use the command `poetry run pytest tests` in the DevOps-Course-Starter directory. This will search the "tests" directory for files starting in `test_` or ending in `_test`. Inside those files, any function starting with `test_` will be considered a test.
 
 ### Running tests in Docker container
+
 To create the docker image run
 `docker build --target test --tag todo-app:test .`
 To run docker container run
 `docker run todo-app:test`
+
+## To run To Do App on managed nodes
+
+Copy the contents of the `Ansible` repository to the control node
+On the control node run `ansible-playbook my-ansible-playbook.yml -i my-ansible-inventory`
