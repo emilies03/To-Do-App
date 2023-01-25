@@ -1,0 +1,81 @@
+- name: Install todo app on new web servers
+  hosts: webservers
+  remote_user: ec2-user
+
+  vars_prompt:
+    - name: secret_key
+      prompt: What is the secret key?
+
+    - name: api_key
+      prompt: What is the Trello API key?
+
+    - name: token
+      prompt: What is the Trello Token?
+
+    - name: board_id
+      prompt: What is the Trello board id?
+
+    - name: todo_list_id
+      prompt: What is the to do list id?
+
+    - name: started_list_id
+      prompt: What is the started list id?
+
+    - name: done_list_id
+      prompt: What is the done list id?
+
+  tasks:
+  - name: Install git
+    yum:
+      name: git
+      state: latest
+    become: yes
+
+  - name: Install Python3
+    yum:
+      name: python3
+      state: latest
+    become: yes
+
+  - name: Install poetry
+    ansible.builtin.shell: curl -sSL https://install.python-poetry.org | python3 -
+    args:
+      creates: ~/.local/bin/poetry
+
+  - name: Create app folder
+    ansible.builtin.file:
+      path: /var/todo_app
+      state: directory
+      mode: '777'
+    become: yes
+
+  - name: Set git repo as safe
+    ansible.builtin.shell: source ~/.bash_profile && (git config --global --add safe.directory /var/todo_app)
+
+  - name: Git clone todo app main branch
+    ansible.builtin.git:
+      repo: https://github.com/emilies03/To-Do-App.git
+      dest: /var/todo_app
+      single_branch: yes
+      version: main
+
+  - name: Install poetry dependencies
+    ansible.builtin.shell: source ~/.bash_profile && (cd /var/todo_app;poetry install)
+
+  - name: Copy accross dotenv template file
+    ansible.builtin.template:
+      src: ~/.env.j2
+      dest: /var/todo_app/.env
+
+  - name: Copy service file
+    ansible.builtin.copy:
+      src: ~/todo_app.service
+      dest: /etc/systemd/system/todo_app.service
+      mode: '755'
+    become: yes    
+
+  - name: Start the to_do app
+    ansible.builtin.systemd:
+      name: todo_app.service
+      state: started
+    become: yes
