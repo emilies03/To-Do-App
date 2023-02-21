@@ -22,15 +22,11 @@
       prompt: What is the done list id?
 
   tasks:
-  - name: Install git
+  - name: Install git & python
     yum:
-      name: git
-      state: latest
-    become: yes
-
-  - name: Install Python3
-    yum:
-      name: python3
+      name:
+        - git
+        - python3
       state: latest
     become: yes
 
@@ -43,7 +39,7 @@
     ansible.builtin.file:
       path: /var/todo_app
       state: directory
-      mode: '777'
+      mode: '755'
     become: yes
 
   - name: Set git repo as safe
@@ -57,7 +53,9 @@
       version: main
 
   - name: Install poetry dependencies
-    ansible.builtin.shell: source ~/.bash_profile && (cd /var/todo_app;poetry install)
+    ansible.builtin.shell: 
+      cmd: source ~/.bash_profile && poetry install
+      chdir: /var/todo_app
 
   - name: Copy accross dotenv template file
     ansible.builtin.template:
