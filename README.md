@@ -61,8 +61,19 @@ You should see output similar to the following:
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
 
 #### Developer mode docker container
-To create the docker image run
+
+##### Getting the Docker Image
+You can either build the docker image locally or pull it from DockerHub
+
+To build the docker image run
 `docker build --target developer --tag todo-app:dev .`
+
+The Docker Image is deployed on DockerHub here: https://hub.docker.com/repository/docker/emilie03/todo-app/general
+To download a the image run
+`docker pull emilie03/todo-app:prod`
+
+##### Running the docker container
+
 To run docker container run the following, where `<DESKTOP-ROUTE>` is the file path to the code e.g. `C:\Dev Ops\To Do App\DevOps-Course-Starter`
 ` docker run -d -p 8080:5000 --env-file .env --mount 'type=bind,source=<DESKTOP-ROUTE>\todo_app\,target=/app/todo_app/' todo-app:dev`
 Then you can go to http://localhost:8080/ to view the app
