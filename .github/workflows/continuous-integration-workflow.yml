@@ -7,12 +7,33 @@ on:
       - 'README.md'
 
 jobs:
-  build:
-    name: Build and test
+  # build-and-test:
+  #   name: Build and test
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - name: build docker container 
+  #     run: docker build --target test --tag todo-app:test .
+  #   - name: run docker tests
+  #     run: docker run todo-app:test
+      
+  build-and-push-docker-image:
+    name: Docker Build, Tag & Publish
+    # needs: build-and-test
+    # if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: build docker container 
-      run: docker build --target test --tag todo-app:test .
-    - name: run docker tests
-      run: docker run todo-app:test
+      - name: Git Checkout Code
+        uses: actions/checkout@v1
+        id: git_checkout
+
+      - name: Build, Tag & Publish Image to DockerHub
+        uses: dinushchathurya/build-tag-push-action@v1.2.1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          context: .
+          file: Dockerfile
+          repoOwner: ${{ secrets.DOCKERHUB_USERNAME }}
+          repository:  todo_app
+          tag: ${{github.ref_name}}
