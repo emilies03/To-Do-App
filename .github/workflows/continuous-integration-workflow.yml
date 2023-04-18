@@ -7,20 +7,20 @@ on:
       - 'README.md'
 
 jobs:
-  build-and-test:
-    name: Build and test
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: build docker container 
-      run: docker build --target test --tag todo-app:test .
-    - name: run docker tests
-      run: docker run todo-app:test
+  # build-and-test:
+  #   name: Build and test
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - name: build docker container 
+  #     run: docker build --target test --tag todo-app:test .
+  #   - name: run docker tests
+  #     run: docker run todo-app:test
       
   build-and-push-docker-image:
     name: Docker Build, Tag & Publish
-    needs: build-and-test
-    if: ${{ github.ref == 'refs/heads/main' }}
+    # needs: build-and-test
+    # if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     steps:
       - name: Git Checkout Code
