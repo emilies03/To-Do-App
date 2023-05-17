@@ -9,3 +9,6 @@ class Item:
     @classmethod
     def from_database_entry(self, dbEntry):
         return self(dbEntry["_id"], dbEntry["name"], dbEntry["status"], dbEntry["description"])
+    
+    def get_status(self):
+        return self.status
