@@ -7,5 +7,5 @@ class Item:
         self.class_name = status.lower().replace(" ", "")
 
     @classmethod
-    def from_trello_card(cls, card, list):
-        return cls(card["id"], card["name"], list["name"], card["desc"])
+    def from_database_entry(self, dbEntry):
+        return self(dbEntry["_id"], dbEntry["name"], dbEntry["status"], dbEntry["description"])

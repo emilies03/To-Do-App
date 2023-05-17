@@ -1,17 +1,17 @@
 import os
-from todo_app.data.api_client import get_cards_request, create_new_card, move_card_to_list
+from todo_app.data.api_client import create_new_card, move_card_to_list
 from todo_app.data.item import Item
+from todo_app.data.database_client import get_tasks_from_db
 
 def get_items():
-    cards_result = get_cards_request()
-    if cards_result == None:
+    database_results = get_tasks_from_db()
+    if database_results == None:
         return []
-    card_array = [
-        Item.from_trello_card(card, list)
-        for list in cards_result
-        for card in list['cards']
+    tasks_array = [
+        Item.from_database_entry(task)
+        for task in database_results
     ]
-    return card_array
+    return tasks_array
 
 def update_task_status(card_id, card_status):
     next_list_id = get_next_list_id(card_status)
