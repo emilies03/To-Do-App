@@ -31,6 +31,10 @@ body {
     margin-right: auto;
 }
 
+.list-item--done div{
+    text-decoration: line-through;
+}
+
 .navbar {
     background-color: black;
     margin-bottom: 1.5rem;
@@ -62,10 +66,6 @@ body {
 
 .task-description {
     font-size: 0.75rem;
-}
-
-.task-name--done {
-    text-decoration: line-through;
 }
 
 .task-list {

@@ -12,9 +12,9 @@
       <h2>Items</h2>
       <ul class="list-group mb-4">
         {% for item in view_model.items %}          
-            <li class="list-item">
+            <li class="list-item--{{item.class_name}}">
               <form action="/update" method="post" class="task">
-                <div class="task-name--{{item.class_name}}">{{item.name}}</div>
+                <div>{{item.name}}</div>
                 <input type='hidden' name="item-id" value = {{ item.id }}>
                 <input type='hidden' name="item-status" value = "{{item.status}}">
                 <input class="task-status task-status--{{item.class_name}}" type="submit" value="{{item.status}}"></input>
