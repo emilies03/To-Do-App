@@ -9,6 +9,7 @@ def get_items():
         Item.from_database_entry(task)
         for task in database_results
     ]
+    tasks_array.sort(key=lambda x: x.get_status(), reverse=True)
     return tasks_array
 
 def update_task_status(card_id, card_status):
