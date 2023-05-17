@@ -1,4 +1,4 @@
-from todo_app.data.api_client import create_new_card, move_card_to_list
+from todo_app.data.api_client import create_new_card
 from todo_app.data.item import Item
 from todo_app.data.database_client import get_tasks_from_db, update_task_status_in_db
 
