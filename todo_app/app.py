@@ -14,8 +14,9 @@ def create_app():
 
     @app.route('/submit', methods = ["POST"])
     def submit_review():
-        task_name = request.form.get("task-name")
-        add_item(task_name)
+        task_name = request.form.get("name")
+        task_description = request.form.get("description")
+        add_item(task_name, task_description)
         return redirect(url_for('index'))
 
     @app.route('/update', methods = ["POST"])

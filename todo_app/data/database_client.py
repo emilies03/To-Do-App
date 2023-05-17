@@ -11,10 +11,10 @@ def update_task_status_in_db(task_id, new_status):
     newStatus = {"$set": {"status" : new_status}}
     tasksCollection.update_one(findTaskQuery, newStatus)
 
-def add_task_to_db(task_name):
+def add_task_to_db(task_name, task_description):
     tasksCollection = get_tasks_collection_from_db()
     newTask = { "name": task_name,
-               "description": "",
+               "description": task_description,
                "status": "To Do" 
     }
     tasksCollection.insert_one(newTask)

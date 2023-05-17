@@ -15,8 +15,8 @@ def update_task_status(card_id, card_status):
     updated_status = get_updated_status_string(card_status)
     update_task_status_in_db(card_id, updated_status)
 
-def add_item(item_name):
-    add_task_to_db(item_name)
+def add_item(item_name, item_description):
+    add_task_to_db(item_name, item_description)
 
 def get_updated_status_string(card_status):
     if (card_status == "To Do"):
