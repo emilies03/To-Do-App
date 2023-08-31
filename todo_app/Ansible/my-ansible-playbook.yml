@@ -3,23 +3,14 @@
   remote_user: ec2-user
 
   vars_prompt:
-    - name: api_key
-      prompt: What is the Trello API key?
+    - name: secretKey
+      prompt: What is the Flask secret key?
 
-    - name: token
-      prompt: What is the Trello Token?
+    - name: db_connection_string
+      prompt: What is the database connection string?
 
-    - name: board_id
-      prompt: What is the Trello board id?
-
-    - name: todo_list_id
-      prompt: What is the to do list id?
-
-    - name: started_list_id
-      prompt: What is the started list id?
-
-    - name: done_list_id
-      prompt: What is the done list id?
+    - name: database_name
+      prompt: What is the database name?
 
   tasks:
   - name: Install git & python
