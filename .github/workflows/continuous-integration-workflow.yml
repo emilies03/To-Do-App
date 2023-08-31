@@ -20,7 +20,7 @@ jobs:
   build-and-push-docker-image:
     name: Docker Build, Tag & Publish
     needs: build-and-test
-    if: ${{ github.ref == 'refs/heads/exercise-10' }}
+    if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     steps:
       - name: Git Checkout Code
