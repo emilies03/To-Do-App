@@ -19,6 +19,10 @@ def add_task_to_db(task_name, task_description):
     }
     tasksCollection.insert_one(newTask)
 
+def delete_item_in_db(task_id):
+    tasksCollection = get_tasks_collection_from_db()
+    findTaskQuery = {"_id" : task_id}
+    tasksCollection.delete_one(findTaskQuery)
 
 def get_tasks_collection_from_db():
     client = pymongo.MongoClient(os.getenv("PRIMARY_DB_CONNECTION_STRING"))
