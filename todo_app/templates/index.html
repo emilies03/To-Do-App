@@ -16,8 +16,9 @@
               <form action="/update" method="post" class="task">
                 <div>{{item.name}}</div>
                 <input type='hidden' name="item-id" value = {{ item.id }}>
-                <input type='hidden' name="item-status" value = "{{item.status}}">
-                <input class="task-status task-status--{{item.class_name}}" type="submit" value="{{item.status}}"></input>
+                <input type='hidden' name="item-status" value = {{item.status}}>
+                <input class="task-status task-status--{{item.class_name}}" type="submit" name="action" value="{{item.status}}"></input>
+                <input class="task-status" type="submit" name="action" value="delete"></input>
               </form>
               <div class="task-description">{{item.description}}</div>
             </li>
