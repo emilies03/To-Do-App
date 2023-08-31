@@ -36,7 +36,7 @@ jobs:
           file: Dockerfile
           repoOwner: ${{ secrets.DOCKERHUB_USERNAME }}
           repository:  todo-app
-          tag: prod
+          tag: main
 
   refresh-azure-image:
     name: Refresh Azure Image
