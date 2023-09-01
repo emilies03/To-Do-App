@@ -16,6 +16,8 @@ jobs:
       run: docker build --target test --tag todo-app:test .
     - name: run docker tests
       run: docker run todo-app:test
+    - name: check package dependencies
+      run: docker run --entrypoint poetry todo-app:test run safety check
       
   build-and-push-docker-image:
     name: Docker Build, Tag & Publish
