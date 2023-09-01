@@ -31,10 +31,18 @@ resource "azurerm_linux_web_app" "main" {
 
   site_config {
     application_stack {
-      docker_image_name   = "appsvcsample/python-helloworld:latest"
+      docker_image_name   = "emilie03/todo-app:main"
       docker_registry_url = "https://index.docker.io"
     }
   }
+
+  app_settings = {
+    SECRET_KEY                   = "PLACEHOLDER"
+    PRIMARY_DB_CONNECTION_STRING = azurerm_cosmosdb_account.main.connection_strings[0]
+    DATABASE_NAME                = azurerm_cosmosdb_mongo_database.main.name
+  }
+
+  lifecycle { ignore_changes = [ app_settings["SECRET_KEY"] ] }
 }
 
 resource "azurerm_cosmosdb_account" "main" {
