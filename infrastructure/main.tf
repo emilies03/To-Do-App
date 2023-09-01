@@ -24,7 +24,7 @@ resource "azurerm_service_plan" "main" {
 }
 
 resource "azurerm_linux_web_app" "main" {
-  name                = "em-todoapp"
+  name                = "${var.prefix}-em-todoapp"
   location            = data.azurerm_resource_group.main.location
   resource_group_name = data.azurerm_resource_group.main.name
   service_plan_id     = azurerm_service_plan.main.id
@@ -46,13 +46,13 @@ resource "azurerm_linux_web_app" "main" {
 }
 
 resource "azurerm_cosmosdb_account" "main" {
-  name                = "em-todoapp-db"
+  name                = "${var.prefix}-em-todoapp-db"
   location            = data.azurerm_resource_group.main.location
   resource_group_name = data.azurerm_resource_group.main.name
   offer_type          = "Standard"
   kind                = "MongoDB"
 
-  lifecycle { prevent_destroy = true }
+  # lifecycle { prevent_destroy = true }
   
   capabilities {
     name = "EnableServerless"
