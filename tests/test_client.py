@@ -1,8 +1,9 @@
 import pytest
 import mongomock
+import pymongo
+import os
 from dotenv import load_dotenv, find_dotenv
 from todo_app import app
-from todo_app.data.database_client import add_task_to_db
 
 @pytest.fixture
 def client():
@@ -15,7 +16,13 @@ def client():
             yield client
 
 def test_index_page(client):
-    add_task_to_db("task_name", "task_description")
+    databaseClient = pymongo.MongoClient(os.getenv("PRIMARY_DB_CONNECTION_STRING"))
+    tasks = databaseClient[os.getenv("DATABASE_NAME")]['tasks']
+    tasks.insert_one({
+        "name": "task_name",
+        "description": "task_description",
+        "status": "To Do" 
+    })
     response = client.get('/')
 
     assert response.status_code == 200
