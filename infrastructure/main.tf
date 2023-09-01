@@ -51,6 +51,8 @@ resource "azurerm_cosmosdb_account" "main" {
   resource_group_name = data.azurerm_resource_group.main.name
   offer_type          = "Standard"
   kind                = "MongoDB"
+
+  lifecycle { prevent_destroy = true }
   
   capabilities {
     name = "EnableServerless"
