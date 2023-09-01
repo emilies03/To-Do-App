@@ -39,6 +39,15 @@ There's also a [SECRET_KEY](https://flask.palletsprojects.com/en/1.1.x/config/#S
 
 The database name and connection string will also need to be added.
 
+### Dependency Checking
+
+Safety if used to check for vulnerabilities. This is done in the pipeline part of the `Build and Test` step.
+
+To check vulnerabilities locally:
+```bash
+$ poetry run safety check
+```
+
 ## Running the App
 
 ### Development mode
