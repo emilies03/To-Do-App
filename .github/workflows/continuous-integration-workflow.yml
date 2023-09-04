@@ -7,44 +7,62 @@ on:
       - 'README.md'
 
 jobs:
-  build-and-test:
-    name: Build and test
+  # build-and-test:
+  #   name: Build and test
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - name: build docker container 
+  #     run: docker build --target test --tag todo-app:test .
+  #   - name: run docker tests
+  #     run: docker run todo-app:test
+  #   - name: check package dependencies
+  #     run: docker run --entrypoint poetry todo-app:test run safety check
+
+  update-infrastructure:
+    name: Terraform init
+    # needs: build-and-test
+    # if: ${{ github.ref == 'refs/heads/main' }}
+    env:
+      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: build docker container 
-      run: docker build --target test --tag todo-app:test .
-    - name: run docker tests
-      run: docker run todo-app:test
-    - name: check package dependencies
-      run: docker run --entrypoint poetry todo-app:test run safety check
+    - name: Git Checkout Code
+      uses: actions/checkout@v1
+      id: git_checkout
+    - name: terraform init
+      working-directory: infrastructure
+      run: terraform init
       
-  build-and-push-docker-image:
-    name: Docker Build, Tag & Publish
-    needs: build-and-test
-    if: ${{ github.ref == 'refs/heads/main' }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Git Checkout Code
-        uses: actions/checkout@v1
-        id: git_checkout
+  # build-and-push-docker-image:
+  #   name: Docker Build, Tag & Publish
+  #   needs: build-and-test
+  #   if: ${{ github.ref == 'refs/heads/main' }}
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Git Checkout Code
+  #       uses: actions/checkout@v1
+  #       id: git_checkout
 
-      - name: Build, Tag & Publish Image to DockerHub
-        uses: dinushchathurya/build-tag-push-action@v1.2.1
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-          context: .
-          file: Dockerfile
-          repoOwner: ${{ secrets.DOCKERHUB_USERNAME }}
-          repository:  todo-app
-          tag: main
+  #     - name: Build, Tag & Publish Image to DockerHub
+  #       uses: dinushchathurya/build-tag-push-action@v1.2.1
+  #       with:
+  #         username: ${{ secrets.DOCKERHUB_USERNAME }}
+  #         password: ${{ secrets.DOCKERHUB_TOKEN }}
+  #         context: .
+  #         file: Dockerfile
+  #         repoOwner: ${{ secrets.DOCKERHUB_USERNAME }}
+  #         repository:  todo-app
+  #         tag: main
 
-  refresh-azure-image:
-    name: Refresh Azure Image
-    needs: build-and-push-docker-image
-    runs-on: ubuntu-latest
-    steps:
-      - name: Curl Azure webhook
-        run: |
-          curl --fail -dH -X POST '${{ secrets.AZURE_WEBHOOK }}'        
+  # refresh-azure-image:
+  #   name: Refresh Azure Image
+  #   needs: build-and-push-docker-image
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Curl Azure webhook
+  #       run: |
+  #         curl --fail -dH -X POST '${{ secrets.AZURE_WEBHOOK }}'        
