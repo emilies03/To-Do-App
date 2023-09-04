@@ -36,6 +36,9 @@ jobs:
     - name: terraform init
       working-directory: infrastructure
       run: terraform init
+    - name: terraform apply
+      working-directory: infrastructure
+      run: terraform apply -auto-approve
       
   # build-and-push-docker-image:
   #   name: Docker Build, Tag & Publish
