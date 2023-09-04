@@ -1,6 +1,6 @@
 # DevOps Apprenticeship: Project Exercise
 
-This project creates a To Do flask app. The to do app is hosted on Azure [here](https://todoappems.azurewebsites.net/).
+This project creates a To Do flask app. The to do app is hosted on Azure [here](http://test-em-todoapp.azurewebsites.net/).
 Tasks are stored in a Azure Cosmos DB which is encrypted at rest by default.
 
 ## System Requirements
@@ -113,3 +113,23 @@ To run docker container run
 
 Copy the contents of the `Ansible` repository to the control node
 On the control node run `ansible-playbook my-ansible-playbook.yml -i my-ansible-inventory`, you should then see the app running on port 80 of the managed node e.g. go to http://18.170.89.124
+
+## Terraform
+
+Infrastructure is defined using Terraform in the `/infrastructure` directory. The terrform state files are stored in Azure Storage Account.
+The Azure Storage Account is not tracked in Terraform and must be created manually on project set up.
+
+### Pipeline infrastructure changes
+
+Terraform changes are implemented in the pipeline on the `main` branch.
+For this you must provide a Servie Principal (`ARM_CLIENT_ID`, `ARM_CLIENT_SECRET`, `ARM_TENANT_ID` and `ARM_SUBSCRIPTION_ID`) secrets in the pipeline. 
+
+### Applying changes locally
+
+All Terraform changes should be implemented in the pipeline, however you can run terraform commands locally.
+You must first navigate to the infrastructure directory.
+```bash
+$ cd infrastructure
+$ terraform plan
+$ terraform apply
+```
