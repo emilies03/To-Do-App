@@ -18,27 +18,6 @@ jobs:
   #     run: docker run todo-app:test
   #   - name: check package dependencies
   #     run: docker run --entrypoint poetry todo-app:test run safety check
-
-  update-infrastructure:
-    name: Terraform init
-    # needs: build-and-test
-    # if: ${{ github.ref == 'refs/heads/main' }}
-    env:
-      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-    runs-on: ubuntu-latest
-    steps:
-    - name: Git Checkout Code
-      uses: actions/checkout@v1
-      id: git_checkout
-    - name: terraform init
-      working-directory: infrastructure
-      run: terraform init
-    - name: terraform apply
-      working-directory: infrastructure
-      run: terraform apply -auto-approve
       
   # build-and-push-docker-image:
   #   name: Docker Build, Tag & Publish
@@ -61,11 +40,26 @@ jobs:
   #         repository:  todo-app
   #         tag: main
 
-  # refresh-azure-image:
-  #   name: Refresh Azure Image
-  #   needs: build-and-push-docker-image
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Curl Azure webhook
-  #       run: |
-  #         curl --fail -dH -X POST '${{ secrets.AZURE_WEBHOOK }}'        
+  update-infrastructure:
+    name: Terraform changes
+    # needs: build-and-push-docker-image
+    # if: ${{ github.ref == 'refs/heads/main' }}
+    env:
+      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Git Checkout Code
+      uses: actions/checkout@v1
+      id: git_checkout
+    - name: Terraform init
+      working-directory: infrastructure
+      run: terraform init
+    - name: Terraform apply
+      working-directory: infrastructure
+      run: terraform apply -auto-approve
+    - name: Curl Azure webhook to refresh azure image
+      working-directory: infrastructure
+      run: curl --fail -dH -X POST $(terraform output -raw webhook_url)
