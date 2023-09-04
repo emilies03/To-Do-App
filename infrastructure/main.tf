@@ -5,6 +5,13 @@ terraform {
       version = ">= 3.8"
     }
   }
+   backend "azurerm" {
+      resource_group_name  = "Cohort25_EmiSto_ProjectExercise"
+      storage_account_name = "tfstateemtodoapp"
+      container_name       = "tfstate"
+      key                  = "terraform.tfstate"
+  }
+
 }
 
 provider "azurerm" {
