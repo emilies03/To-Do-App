@@ -1,6 +1,8 @@
 import os
 import pymongo
+import logging
 from todo_app.data.item import Item
+from todo_app.data.constants import LOGGER_NAME
 
 class DatabaseClient:
     def __init__(self):
@@ -28,23 +30,27 @@ class DatabaseClient:
     
     def get_items(self):
         database_results = self.get_tasks_from_db()
+        logger = logging.getLogger(LOGGER_NAME)
         if database_results == None:
+            logger.info(f'No tasks in database')
             return []
         tasks_array = [
             Item.from_database_entry(task)
             for task in database_results
         ]
+        logger.info(f'{len(tasks_array)} tasks returned from database')
         tasks_array.sort(key=lambda x: x.get_status(), reverse=True)
         return tasks_array
     
-    def update_task_status(self, card_id, card_status):
-        updated_status = self.get_updated_status_string(card_status)
-        self.update_task_status_in_db(card_id, updated_status)
+    def update_task_status(self, task_id, task_status):
+        updated_status = self.get_updated_status_string(task_status)
+        self.update_task_status_in_db(task_id, updated_status)
 
-    def get_updated_status_string(self, card_status):
-        if (card_status == "To Do"):
-            return "Started"
-        if (card_status == "Started"):
-            return "Done"
-        if (card_status == "Done"):
-            return "To Do"
+    def get_updated_status_string(self, task_status):
+        new_status = "To Do"
+        if (task_status == "To Do"):
+            new_status = "Started"
+        if (task_status == "Started"):
+            new_status = "Done"
+        logging.getLogger(LOGGER_NAME).info(f'Updating status from {task_status} to {new_status}')
+        return new_status
