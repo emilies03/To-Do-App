@@ -2,14 +2,13 @@ from flask import Flask, render_template, request, redirect, url_for
 from todo_app.data.database_client import DatabaseClient
 from todo_app.flask_config import Config
 from todo_app.view_models.items_view_model import ItemsViewModel
-from todo_app.data.logging import logInfo
-import logging
+from todo_app.data.logging import logInfo, setupLogger
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config())
-    logging.basicConfig(level = app.config['LOG_LEVEL'])
     client = DatabaseClient()
+    setupLogger()
 
     @app.route('/')
     def index():
