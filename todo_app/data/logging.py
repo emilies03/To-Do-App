@@ -1,8 +1,14 @@
 import logging
-from todo_app.data.constants import LOGGER_NAME
 
 LOGGER_NAME = "todo_app"
 
+def getLogger():
+    return logging.getLogger(LOGGER_NAME)
+
 def logInfo(message):
-    logger = logging.getLogger(LOGGER_NAME)
+    logger = getLogger()
     logger.info(message)
+
+def logError(message):
+    logger = getLogger()
+    logger.error(message)

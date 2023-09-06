@@ -1,12 +1,16 @@
 import os
 import pymongo
 from todo_app.data.item import Item
-from todo_app.data.logging import logInfo
+from todo_app.data.logging import logInfo, logError
 
 class DatabaseClient:
     def __init__(self):
-        self.mongo_db_client = pymongo.MongoClient(os.getenv("PRIMARY_DB_CONNECTION_STRING"))
-        self.tasks = self.mongo_db_client[os.getenv("DATABASE_NAME")]['tasks']
+        try:
+            self.mongo_db_client = pymongo.MongoClient(os.getenv("PRIMARY_DB_CONNECTION_STRING"))
+            self.tasks = self.mongo_db_client[os.getenv("DATABASE_NAME")]['tasks']
+        except Exception as e:
+            logError(f'Unable to connect to DB, error: {e}')
+            
 
     def get_tasks_from_db(self):
         return self.tasks.find()
