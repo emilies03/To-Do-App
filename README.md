@@ -37,7 +37,7 @@ The `.env` file is used by flask to set environment variables when running `flas
 
 There's also a [SECRET_KEY](https://flask.palletsprojects.com/en/1.1.x/config/#SECRET_KEY) variable which is used to encrypt the flask session cookie.
 
-The database name and connection string will also need to be added.
+The database name and connection string will also need to be added. To log to Loggly, the LOGGLY_TOKEN has to be added.
 
 ### Dependency Checking
 
@@ -112,4 +112,32 @@ To run docker container run
 ## To run To Do App on managed nodes
 
 Copy the contents of the `Ansible` repository to the control node
+
 On the control node run `ansible-playbook my-ansible-playbook.yml -i my-ansible-inventory`, you should then see the app running on port 80 of the managed node e.g. go to http://18.170.89.124
+
+## Logging
+
+Loggly is used to log the app at this [`subdomain`](https://emtodoapp.loggly.com/).
+If the `LOGGLY_TOKEN` is not set, the app will only log to console.
+
+To update the logging level, change the `LOG_LEVEL` variable in the `.env` file.
+
+## Terraform
+
+Infrastructure is defined using Terraform in the `/infrastructure` directory. The terrform state files are stored in Azure Storage Account.
+The Azure Storage Account is not tracked in Terraform and must be created manually on project set up.
+
+### Pipeline infrastructure changes
+
+Terraform changes are implemented in the pipeline on the `main` branch.
+For this you must provide a Servie Principal (`ARM_CLIENT_ID`, `ARM_CLIENT_SECRET`, `ARM_TENANT_ID` and `ARM_SUBSCRIPTION_ID`) secrets in the pipeline. 
+
+### Applying changes locally
+
+All Terraform changes should be implemented in the pipeline, however you can run terraform commands locally.
+You must first navigate to the infrastructure directory.
+```bash
+$ cd infrastructure
+$ terraform plan
+$ terraform apply
+```
