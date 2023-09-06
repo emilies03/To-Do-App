@@ -9,8 +9,12 @@ def setupLogger():
     streamHandler = StreamHandler()
     logglyHandler = HTTPSHandler(f'https://logs-01.loggly.com/inputs/{os.getenv("LOGGLY_TOKEN")}/tag/todo-app')
     logglyHandler.setFormatter(Formatter("[%(asctime)s] %(levelname)s in %(module)s: %(message)s"))
+
+    logLevel = os.environ.get('LOG_LEVEL')
+    if logLevel == None :
+        logLevel = "INFO"
     
-    logging.basicConfig(level = os.getenv('LOG_LEVEL'), handlers= [streamHandler, logglyHandler])
+    logging.basicConfig(level = logLevel, handlers= [streamHandler, logglyHandler])
 
 def getLogger():
     return logging.getLogger(LOGGER_NAME)
