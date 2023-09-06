@@ -1,8 +1,7 @@
 import os
 import pymongo
-import logging
 from todo_app.data.item import Item
-from todo_app.data.constants import LOGGER_NAME
+from todo_app.data.logging import logInfo
 
 class DatabaseClient:
     def __init__(self):
@@ -30,15 +29,14 @@ class DatabaseClient:
     
     def get_items(self):
         database_results = self.get_tasks_from_db()
-        logger = logging.getLogger(LOGGER_NAME)
         if database_results == None:
-            logger.info(f'No tasks in database')
+            logInfo(f'No tasks in database')
             return []
         tasks_array = [
             Item.from_database_entry(task)
             for task in database_results
         ]
-        logger.info(f'{len(tasks_array)} tasks returned from database')
+        logInfo(f'{len(tasks_array)} tasks returned from database')
         tasks_array.sort(key=lambda x: x.get_status(), reverse=True)
         return tasks_array
     
@@ -52,5 +50,5 @@ class DatabaseClient:
             new_status = "Started"
         if (task_status == "Started"):
             new_status = "Done"
-        logging.getLogger(LOGGER_NAME).info(f'Updating status from {task_status} to {new_status}')
+        logInfo(f'Updating status from {task_status} to {new_status}')
         return new_status
