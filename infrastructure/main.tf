@@ -43,12 +43,10 @@ resource "azurerm_linux_web_app" "main" {
   }
 
   app_settings = {
-    SECRET_KEY                   = "PLACEHOLDER"
+    SECRET_KEY                   = var.secret_key
     PRIMARY_DB_CONNECTION_STRING = azurerm_cosmosdb_account.main.connection_strings[0]
     DATABASE_NAME                = azurerm_cosmosdb_mongo_database.main.name
   }
-
-  lifecycle { ignore_changes = [ app_settings["SECRET_KEY"] ] }
 }
 
 resource "azurerm_cosmosdb_account" "main" {
@@ -57,8 +55,6 @@ resource "azurerm_cosmosdb_account" "main" {
   resource_group_name = data.azurerm_resource_group.main.name
   offer_type          = "Standard"
   kind                = "MongoDB"
-
-  # lifecycle { prevent_destroy = true }
   
   capabilities {
     name = "EnableServerless"
