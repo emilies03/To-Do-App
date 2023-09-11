@@ -10,5 +10,5 @@ variable "loggly_token" {
 
 variable "log_level" {
   description = "Logging level"
-  default = "ERROR"
+  default = "WARNING"
 }

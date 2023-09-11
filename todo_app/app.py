@@ -19,7 +19,7 @@ def create_app():
     def create_new_task():
         task_name = request.form.get("name")
         task_description = request.form.get("description")
-        logInfo(f'Adding new task to DB with name: {task_name}, description: {task_description}')
+        logInfo(f'Adding new task to DB.')
         client.add_task_to_db(task_name, task_description)
         return redirect(url_for('index'))
 

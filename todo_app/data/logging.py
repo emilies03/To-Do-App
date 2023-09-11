@@ -14,10 +14,7 @@ def setupLogger():
         logglyHandler.setFormatter(Formatter("[%(asctime)s] %(levelname)s in %(module)s: %(message)s"))
         handlers.append(logglyHandler)
 
-    logLevel = os.environ.get('LOG_LEVEL')
-    if logLevel == None :
-        logLevel = "INFO"
-    
+    logLevel = os.environ.get('LOG_LEVEL', 'INFO')
     logging.basicConfig(level = logLevel, handlers= handlers)
 
 def getLogger():
