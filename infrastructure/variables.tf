@@ -12,3 +12,8 @@ variable "log_level" {
   description = "Logging level"
   default = "WARNING"
 }
+
+variable "secret_key" {
+  description = "The variable which is used to encrypt the flask session cookie"
+  sensitive = true
+}

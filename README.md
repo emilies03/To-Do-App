@@ -1,6 +1,6 @@
 # DevOps Apprenticeship: Project Exercise
 
-This project creates a To Do flask app. The to do app is hosted on Azure [here](https://todoappems.azurewebsites.net/).
+This project creates a To Do flask app. The to do app is hosted on Azure [here](http://test-em-todoapp.azurewebsites.net/).
 Tasks are stored in a Azure Cosmos DB which is encrypted at rest by default.
 
 ## System Requirements

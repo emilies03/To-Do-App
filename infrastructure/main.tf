@@ -49,8 +49,6 @@ resource "azurerm_linux_web_app" "main" {
     LOG_LEVEL                    = var.log_level
     LOGGLY_TOKEN                 = var.loggly_token
   }
-
-  lifecycle { ignore_changes = [ app_settings["SECRET_KEY"]] }
 }
 
 resource "azurerm_cosmosdb_account" "main" {
@@ -59,8 +57,6 @@ resource "azurerm_cosmosdb_account" "main" {
   resource_group_name = data.azurerm_resource_group.main.name
   offer_type          = "Standard"
   kind                = "MongoDB"
-
-  # lifecycle { prevent_destroy = true }
   
   capabilities {
     name = "EnableServerless"
