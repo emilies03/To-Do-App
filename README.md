@@ -37,7 +37,7 @@ The `.env` file is used by flask to set environment variables when running `flas
 
 There's also a [SECRET_KEY](https://flask.palletsprojects.com/en/1.1.x/config/#SECRET_KEY) variable which is used to encrypt the flask session cookie.
 
-The database name and connection string will also need to be added.
+The database name and connection string will also need to be added. To log to Loggly, the LOGGLY_TOKEN has to be added.
 
 ### Dependency Checking
 
@@ -112,7 +112,15 @@ To run docker container run
 ## To run To Do App on managed nodes
 
 Copy the contents of the `Ansible` repository to the control node
+
 On the control node run `ansible-playbook my-ansible-playbook.yml -i my-ansible-inventory`, you should then see the app running on port 80 of the managed node e.g. go to http://18.170.89.124
+
+## Logging
+
+Loggly is used to log the app at this [`subdomain`](https://emtodoapp.loggly.com/).
+If the `LOGGLY_TOKEN` is not set, the app will only log to console.
+
+To update the logging level, change the `LOG_LEVEL` variable in the `.env` file.
 
 ## Terraform
 

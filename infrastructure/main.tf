@@ -43,9 +43,11 @@ resource "azurerm_linux_web_app" "main" {
   }
 
   app_settings = {
-    SECRET_KEY                   = var.secret_key
+    SECRET_KEY                   = "PLACEHOLDER"
     PRIMARY_DB_CONNECTION_STRING = azurerm_cosmosdb_account.main.connection_strings[0]
     DATABASE_NAME                = azurerm_cosmosdb_mongo_database.main.name
+    LOG_LEVEL                    = var.log_level
+    LOGGLY_TOKEN                 = var.loggly_token
   }
 }
 
